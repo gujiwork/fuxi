@@ -1,0 +1,22 @@
+http:
+  # debug release
+  mode: 'debug'
+  listen: 38383
+
+mysql:
+  host: '192.168.1.31:3306'
+  config: 'charset=utf8mb4&parseTime=True&loc=Local'
+  db-name: 'luban-demo'
+  username: 'root'
+  password: '123456'
+
+
+redis:
+  addr: ''
+  db: 0
+  username: ''
+  password: ''
+  poolSize: 20
+  dialTimeout:
+  readTimeout:
+  writeTimeout:
