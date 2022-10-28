@@ -9,6 +9,9 @@ ALL: run
 run: build
 	./fuxi
 
+test:
+	go test ./pkg/...
+
 build:
 	env CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -ldflags="-w -s" -o $(releaseName) ./cmd/main.go
 

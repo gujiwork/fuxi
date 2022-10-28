@@ -225,5 +225,5 @@ func (o *Options) register() error {
 }
 
 func (o *Options) Run(stopCh <-chan struct{}) {
-	o.GinEngine.Run(fmt.Sprintf(":%d", o.ComponentConfig.Http.Listen))
+	_ = o.GinEngine.Run(fmt.Sprintf(":%d", o.ComponentConfig.Http.Listen))
 }
