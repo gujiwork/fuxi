@@ -25,24 +25,17 @@ SOFTWARE.
 
 */
 
-package db
+package routers
 
-import "gorm.io/gorm"
+import (
+	"github.com/gin-gonic/gin"
 
-type ShareDaoFactory interface {
-	User() UserInterface
-}
+	"github.com/dnsjia/fuxi/controller"
+)
 
-type shareDaoFactory struct {
-	db *gorm.DB
-}
-
-func NewDaoFactory(db *gorm.DB) ShareDaoFactory {
-	return &shareDaoFactory{
-		db: db,
+func UserRouter(engine *gin.Engine) {
+	users := engine.Group("/api/v1/user")
+	{
+		users.POST("/login", controller.Login)
 	}
-}
-
-func (s *shareDaoFactory) User() UserInterface {
-	return NewUserFactory(s.db)
 }

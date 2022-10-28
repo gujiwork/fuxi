@@ -27,22 +27,17 @@ SOFTWARE.
 
 package db
 
-import "gorm.io/gorm"
+import (
+	"fmt"
+	"os"
 
-type ShareDaoFactory interface {
-	User() UserInterface
-}
+	"gorm.io/gorm"
+)
 
-type shareDaoFactory struct {
-	db *gorm.DB
-}
-
-func NewDaoFactory(db *gorm.DB) ShareDaoFactory {
-	return &shareDaoFactory{
-		db: db,
+func InitMysqlTables(db *gorm.DB) {
+	err := db.AutoMigrate()
+	if err != nil {
+		fmt.Println("Failed to initialize the table. Procedure", err)
+		os.Exit(-1)
 	}
-}
-
-func (s *shareDaoFactory) User() UserInterface {
-	return NewUserFactory(s.db)
 }

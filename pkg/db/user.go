@@ -27,22 +27,28 @@ SOFTWARE.
 
 package db
 
-import "gorm.io/gorm"
+import (
+	"context"
 
-type ShareDaoFactory interface {
-	User() UserInterface
+	"gorm.io/gorm"
+
+	"github.com/dnsjia/fuxi/pkg/db/models"
+)
+
+type UserInterface interface {
+	GetByUserName(ctx context.Context, username string) (*models.User, error)
 }
 
-type shareDaoFactory struct {
+type user struct {
 	db *gorm.DB
 }
 
-func NewDaoFactory(db *gorm.DB) ShareDaoFactory {
-	return &shareDaoFactory{
+func NewUserFactory(db *gorm.DB) UserInterface {
+	return &user{
 		db: db,
 	}
 }
 
-func (s *shareDaoFactory) User() UserInterface {
-	return NewUserFactory(s.db)
+func (u *user) GetByUserName(ctx context.Context, username string) (*models.User, error) {
+	return nil, nil
 }

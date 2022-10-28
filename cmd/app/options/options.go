@@ -116,7 +116,7 @@ func (o *Options) BindFlags(cmd *cobra.Command) {
 
 func (o *Options) Database() error {
 	m := o.ComponentConfig.Mysql
-	dsn := m.Username + ":" + m.Password + "@tcp(" + m.Host + ")/" + m.Dbname + "?" + m.Config
+	dsn := m.Username + ":" + m.Password + "@tcp(" + m.Host + ")/" + m.Dbname + "?" + "charset=utf8mb4&parseTime=True&loc=Local"
 	mysqlConfig := mysql.Config{
 		DSN:                       dsn,   // DSN data source name
 		DefaultStringSize:         191,   // string 类型字段的默认长度
@@ -144,7 +144,7 @@ func (o *Options) Database() error {
 
 	o.Factory = db.NewDaoFactory(o.DB)
 	// 初始化表
-	// db.MysqlTables(o.DB)
+	db.InitMysqlTables(o.DB)
 	return nil
 }
 

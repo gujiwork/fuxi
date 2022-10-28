@@ -35,6 +35,7 @@ import (
 	"github.com/spf13/cobra"
 	"go.uber.org/zap"
 
+	"github.com/dnsjia/fuxi/api/routers"
 	"github.com/dnsjia/fuxi/cmd/app/options"
 	"github.com/dnsjia/fuxi/pkg/fuxi"
 )
@@ -96,4 +97,5 @@ func Run(opts *options.Options) error {
 }
 
 func InitRouters(opts *options.Options) {
+	routers.UserRouter(opts.GinEngine)
 }
