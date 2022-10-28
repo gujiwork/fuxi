@@ -9,7 +9,6 @@ mysql:
   username: 'root'
   password: '123456'
 
-
 redis:
   addr: ''
   db: 0
@@ -19,3 +18,12 @@ redis:
   dialTimeout:
   readTimeout:
   writeTimeout:
+
+# 阿里云Oss
+oss:
+  access-key:  ""
+  access-secret:  ""
+  endpoint: "https://oss-cn-shanghai.aliyuncs.com"
+  bucket: "<your becket>"
+  origin-dir: "oss/"
+  bucket-domain: "https://<your-domain>.oss-cn-shenzhen.aliyuncs.com"

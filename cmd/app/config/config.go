@@ -33,6 +33,7 @@ type Config struct {
 	Http  HttpOptions  `mapstructure:"http"  json:"http" yaml:"http"`
 	Mysql MysqlOptions `mapstructure:"mysql"  json:"mysql" yaml:"mysql"`
 	Redis RedisOptions `mapstructure:"redis"  json:"redis" yaml:"redis"`
+	Oss   OssOptions   `mapstructure:"oss"  json:"oss" yaml:"oss"`
 }
 
 type HttpOptions struct {
@@ -56,4 +57,13 @@ type RedisOptions struct {
 	DialTimeout  time.Duration `mapstructure:"dialTimeout" json:"dialTimeout" yaml:"dialTimeout"`
 	ReadTimeout  time.Duration `mapstructure:"readTimeout" json:"readTimeout" yaml:"readTimeout"`
 	WriteTimeout time.Duration `mapstructure:"writeTimeout" json:"writeTimeout" yaml:"writeTimeout"`
+}
+
+type OssOptions struct {
+	AccessKey    string `mapstructure:"access-key" json:"accessKey" yaml:"access-key"`
+	AccessSecret string `mapstructure:"access-secret" json:"accessSecret" yaml:"access-secret"`
+	Endpoint     string `mapstructure:"endpoint" json:"endpoint" yaml:"endpoint"`
+	Bucket       string `mapstructure:"bucket" json:"bucket" yaml:"bucket"`
+	OriginDir    string `mapstructure:"origin-dir" json:"origin-dir" yaml:"origin-dir"`
+	BucketDomain string `mapstructure:"bucket-domain" json:"bucketDomain" yaml:"bucket-domain"`
 }
