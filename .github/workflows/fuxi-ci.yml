@@ -2,7 +2,8 @@ name: fuxi-ci
 
 on:
   push:
-    branches: "*"
+    branches:
+      - main
   pull_request:
     branches: "*"
     paths-ignore:
@@ -42,7 +43,7 @@ jobs:
         run: |
           export MULTI_PLATFORM_BUILD=true
           make build
-        working-directory: src/github.com/dnsjia/fuxi/
+        working-directory: src/github.com/dnsjia
       - name: Save build binaries
         uses: actions/upload-artifact@v2
         with:
