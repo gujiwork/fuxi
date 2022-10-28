@@ -10,6 +10,10 @@ on:
       - 'vendor/**'
       - '*.md'
       - '*.yml'
+env:
+  # Common versions
+  GO_VERSION: '1.18'
+  GOLANGCI_VERSION: 'v1.42'
 
 jobs:
   golangci-lint:
@@ -39,7 +43,7 @@ jobs:
         run: |
           export MULTI_PLATFORM_BUILD=true
           make build
-        working-directory: src/github.com/dnsjia/fuxi
+        working-directory: src/github.com/dnsjia/fuxi/
       - name: Save build binaries
         uses: actions/upload-artifact@v2
         with:
