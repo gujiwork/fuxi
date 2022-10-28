@@ -25,24 +25,10 @@ SOFTWARE.
 
 */
 
-package db
+package controller
 
-import "gorm.io/gorm"
+import "github.com/gin-gonic/gin"
 
-type ShareDaoFactory interface {
-	User() UserInterface
-}
+func Login(c *gin.Context) {
 
-type shareDaoFactory struct {
-	db *gorm.DB
-}
-
-func NewDaoFactory(db *gorm.DB) ShareDaoFactory {
-	return &shareDaoFactory{
-		db: db,
-	}
-}
-
-func (s *shareDaoFactory) User() UserInterface {
-	return NewUserFactory(s.db)
 }

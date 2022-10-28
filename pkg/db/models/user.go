@@ -25,24 +25,18 @@ SOFTWARE.
 
 */
 
-package db
+package models
 
-import "gorm.io/gorm"
-
-type ShareDaoFactory interface {
-	User() UserInterface
+type User struct {
+	FuXiModel
+	UserName string `gorm:"index:idx_username,unique;comment:用户名" json:"username"`
+	Password string `gorm:"type:varchar(256);comment:密码" json:"password"`
+	Name     string `gorm:"type:varchar(64);comment:姓名" json:"name"`
+	Status   int    `gorm:"type:tinyint;comment:状态" json:"status"`
+	Email    string `gorm:"type:varchar(128);comment:邮箱" json:"email"`
+	IsSuper  int64  `gorm:"comment:是否管理员" json:"isSuper"`
 }
 
-type shareDaoFactory struct {
-	db *gorm.DB
-}
-
-func NewDaoFactory(db *gorm.DB) ShareDaoFactory {
-	return &shareDaoFactory{
-		db: db,
-	}
-}
-
-func (s *shareDaoFactory) User() UserInterface {
-	return NewUserFactory(s.db)
+func (u *User) TableName() string {
+	return "users"
 }

@@ -69,36 +69,36 @@ func NewOptions() (*Options, error) {
 }
 
 func (o *Options) Viper(path ...string) *viper.Viper {
-	var config string
+	var configFile string
 	if len(path) == 0 {
-		flag.StringVar(&config, "c", "", "choose config file.")
+		flag.StringVar(&configFile, "c", "", "choose configFile file.")
 		flag.Parse()
-		if config == "" { // 优先级: 命令行 > 环境变量 > 默认值
-			if configEnv := os.Getenv("GVA_CONFIG"); configEnv == "" {
-				config = "etc/fuxi.yaml"
-				fmt.Printf("您正在使用config的默认值, 配置路径为%v\n", "etc/config.yaml")
+		if configFile == "" { // 优先级: 命令行 > 环境变量 > 默认值
+			if configEnv := os.Getenv("FUXI_CONFIG"); configEnv == "" {
+				configFile = "etc/fuxi.yaml"
+				fmt.Printf("您正在使用config的默认值, 配置路径为%v\n", "etc/configFile.yaml")
 			} else {
-				config = configEnv
-				fmt.Printf("您正在使用GVA_CONFIG环境变量, 配置路径为%v\n", config)
+				configFile = configEnv
+				fmt.Printf("您正在使用FUXI_CONFIG环境变量, 配置路径为%v\n", configFile)
 			}
 		} else {
-			fmt.Printf("您正在使用命令行的-c参数传递的值, 配置路径为%v\n", config)
+			fmt.Printf("您正在使用命令行的-c参数传递的值, 配置路径为%v\n", configFile)
 		}
 	} else {
-		config = path[0]
-		fmt.Printf("您正在使用func Viper()传递的值,config的路径为%v\n", config)
+		configFile = path[0]
+		fmt.Printf("您正在使用func Viper()传递的值,config的路径为%v\n", configFile)
 	}
 
 	v := viper.New()
-	v.SetConfigFile(config)
+	v.SetConfigFile(configFile)
 	err := v.ReadInConfig()
 	if err != nil {
-		panic(fmt.Errorf("Fatal error config file: %s \n", err))
+		panic(fmt.Errorf("Fatal error configFile file: %s \n", err))
 	}
 	v.WatchConfig()
 
 	v.OnConfigChange(func(e fsnotify.Event) {
-		fmt.Println("config file changed:", e.Name)
+		fmt.Println("configFile file changed:", e.Name)
 		if err := v.Unmarshal(&o.ComponentConfig); err != nil {
 			fmt.Println(err)
 		}
@@ -116,7 +116,7 @@ func (o *Options) BindFlags(cmd *cobra.Command) {
 
 func (o *Options) Database() error {
 	m := o.ComponentConfig.Mysql
-	dsn := m.Username + ":" + m.Password + "@tcp(" + m.Host + ")/" + m.Dbname + "?" + m.Config
+	dsn := m.Username + ":" + m.Password + "@tcp(" + m.Host + ")/" + m.Dbname + "?" + "charset=utf8mb4&parseTime=True&loc=Local"
 	mysqlConfig := mysql.Config{
 		DSN:                       dsn,   // DSN data source name
 		DefaultStringSize:         191,   // string 类型字段的默认长度
@@ -144,7 +144,7 @@ func (o *Options) Database() error {
 
 	o.Factory = db.NewDaoFactory(o.DB)
 	// 初始化表
-	// db.MysqlTables(o.DB)
+	db.InitMysqlTables(o.DB)
 	return nil
 }
 

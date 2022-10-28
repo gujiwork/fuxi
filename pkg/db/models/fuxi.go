@@ -25,24 +25,26 @@ SOFTWARE.
 
 */
 
-package db
+package models
 
-import "gorm.io/gorm"
+import "time"
 
-type ShareDaoFactory interface {
-	User() UserInterface
+const (
+	SecLocalTimeFormat  = "2006-01-02 15:04:05"
+	DateLocalTimeFormat = "2006-01-02"
+)
+
+type FuXiModel struct {
+	Id        int       `gorm:"primaryKey;AUTO_INCREMENT;comment:自增主键;not null" json:"id"`
+	CreatedAt LocalTime `json:"createdAt"`
+	UpdatedAt LocalTime `json:"updatedAt"`
+	DeletedAt LocalTime `gorm:"index" json:"-"`
 }
 
-type shareDaoFactory struct {
-	db *gorm.DB
+func (f *FuXiModel) TableName(name string) string {
+	return name
 }
 
-func NewDaoFactory(db *gorm.DB) ShareDaoFactory {
-	return &shareDaoFactory{
-		db: db,
-	}
-}
-
-func (s *shareDaoFactory) User() UserInterface {
-	return NewUserFactory(s.db)
+type LocalTime struct {
+	time.Time
 }

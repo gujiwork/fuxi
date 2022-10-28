@@ -1,0 +1,29 @@
+http:
+  # debug release
+  mode: 'debug'
+  listen: 38383
+
+mysql:
+  host: '192.168.1.31:3306'
+  db-name: 'fuxi'
+  username: 'root'
+  password: '123456'
+
+redis:
+  addr: ''
+  db: 0
+  username: ''
+  password: ''
+  poolSize: 20
+  dialTimeout:
+  readTimeout:
+  writeTimeout:
+
+# 阿里云Oss
+oss:
+  access-key:  ""
+  access-secret:  ""
+  endpoint: "https://oss-cn-shanghai.aliyuncs.com"
+  bucket: "<your becket>"
+  origin-dir: "oss/"
+  bucket-domain: "https://<your-domain>.oss-cn-shenzhen.aliyuncs.com"

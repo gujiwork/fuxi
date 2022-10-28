@@ -25,24 +25,9 @@ SOFTWARE.
 
 */
 
-package db
+package types
 
-import "gorm.io/gorm"
-
-type ShareDaoFactory interface {
-	User() UserInterface
-}
-
-type shareDaoFactory struct {
-	db *gorm.DB
-}
-
-func NewDaoFactory(db *gorm.DB) ShareDaoFactory {
-	return &shareDaoFactory{
-		db: db,
-	}
-}
-
-func (s *shareDaoFactory) User() UserInterface {
-	return NewUserFactory(s.db)
-}
+const (
+	SuperUser   = 1
+	GeneralUser = 0
+)
