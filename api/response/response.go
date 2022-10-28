@@ -25,25 +25,11 @@ SOFTWARE.
 
 */
 
-package controller
+package response
 
-import (
-	"fmt"
-
-	"github.com/gin-gonic/gin"
-
-	"github.com/dnsjia/fuxi/api/response"
-	"github.com/dnsjia/fuxi/api/types"
-)
-
-func Login(c *gin.Context) {
-	var u types.User
-
-	if err := response.CheckParams(c, &u); err != nil {
-		fmt.Println(err.Error())
-		return
-	}
-
-	c.JSON(200, gin.H{"data": u})
-
+type Response struct {
+	Code   int         `json:"errCode"`
+	Data   interface{} `json:"data"`
+	Msg    string      `json:"msg"`
+	ErrMsg string      `json:"errMsg"`
 }

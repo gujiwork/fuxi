@@ -38,12 +38,12 @@ jobs:
         with:
           version: ${{ env.GOLANGCI_VERSION }}
           args: --verbose
-      - name: Make linux
-        shell: bash
-        run: |
-          export MULTI_PLATFORM_BUILD=true
-          make build
-        working-directory: src/github.com/dnsjia
+#      - name: Make linux
+#        shell: bash
+#        run: |
+#          export MULTI_PLATFORM_BUILD=true
+#          make build
+#        working-directory: src/github.com/dnsjia
       - name: Save build binaries
         uses: actions/upload-artifact@v2
         with:

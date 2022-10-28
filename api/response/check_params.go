@@ -25,25 +25,18 @@ SOFTWARE.
 
 */
 
-package controller
+package response
 
 import (
 	"fmt"
 
 	"github.com/gin-gonic/gin"
-
-	"github.com/dnsjia/fuxi/api/response"
-	"github.com/dnsjia/fuxi/api/types"
 )
 
-func Login(c *gin.Context) {
-	var u types.User
-
-	if err := response.CheckParams(c, &u); err != nil {
-		fmt.Println(err.Error())
-		return
+func CheckParams[T any](c *gin.Context, ptr T) error {
+	if err := c.ShouldBindJSON(&ptr); err != nil {
+		return fmt.Errorf("参数绑定失败, %w", err)
 	}
 
-	c.JSON(200, gin.H{"data": u})
-
+	return nil
 }
